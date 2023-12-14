@@ -21,14 +21,11 @@ CREATE TABLE Ticket (
     titre VARCHAR(255),
     description TEXT,
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_echeance DATE,
     priorite INT,
     id_createur INT,
-    id_assigne INT,
     id_statut INT,
-    FOREIGN KEY (id_createur) REFERENCES Utilisateur(id_utilisateur),
-    FOREIGN KEY (id_assigne) REFERENCES Utilisateur(id_utilisateur),
     FOREIGN KEY (id_statut) REFERENCES Statut(id_statut)
+    FOREIGN KEY (id_createur) REFERENCES Utilisateur(id_utilisateur),
 );
 
 CREATE TABLE Commentaire (
