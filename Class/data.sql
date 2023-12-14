@@ -24,6 +24,7 @@ CREATE TABLE Ticket (
     priorite INT,
     id_createur INT,
     id_statut INT,
+    id_tag INt;
     FOREIGN KEY (id_statut) REFERENCES Statut(id_statut)
     FOREIGN KEY (id_createur) REFERENCES Utilisateur(id_utilisateur),
 );
