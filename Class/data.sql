@@ -6,6 +6,7 @@ CREATE TABLE Utilisateur (
     email VARCHAR(255) UNIQUE,
     mot_de_passe VARCHAR(255)
 );
+
 CREATE TABLE Statut (
     id_statut INT PRIMARY KEY AUTO_INCREMENT,
     libelle VARCHAR(255)
