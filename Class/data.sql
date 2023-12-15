@@ -40,7 +40,7 @@ CREATE TABLE Commentaire (
     FOREIGN KEY (id_ticket) REFERENCES Ticket(id_ticket)
 );
 
-CREATE TABLE Attribution (
+CREATE TABLE Assignement (
     id_attribution INT PRIMARY KEY AUTO_INCREMENT,
     id_ticket INT,
     id_assigne INT,
