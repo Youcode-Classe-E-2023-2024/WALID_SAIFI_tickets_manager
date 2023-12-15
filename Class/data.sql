@@ -25,8 +25,9 @@ CREATE TABLE Ticket (
     priorite INT,
     id_createur INT,
     id_statut INT,
-    id_tag INt;
-    FOREIGN KEY (id_statut) REFERENCES Statut(id_statut)
+    id_tag INt,
+    priorite INT,
+    FOREIGN KEY (id_statut) REFERENCES Statut(id_statut),
     FOREIGN KEY (id_createur) REFERENCES Utilisateur(id_utilisateur),
 );
 
@@ -41,10 +42,10 @@ CREATE TABLE Commentaire (
 );
 
 CREATE TABLE Assignement (
-    id_attribution INT PRIMARY KEY AUTO_INCREMENT,
+    id_assignement INT PRIMARY KEY AUTO_INCREMENT,
     id_ticket INT,
     id_assigne INT,
-    date_attribution TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_assignement TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_ticket) REFERENCES Ticket(id_ticket),
     FOREIGN KEY (id_assigne) REFERENCES Utilisateur(id_utilisateur)
 );
@@ -52,6 +53,7 @@ CREATE TABLE Assignement (
 CREATE TABLE Utilisateur_Ticket (
     id_utilisateur INT,
     id_ticket INT,
+    
     PRIMARY KEY (id_utilisateur, id_ticket),
     FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id_utilisateur),
     FOREIGN KEY (id_ticket) REFERENCES Ticket(id_ticket)
