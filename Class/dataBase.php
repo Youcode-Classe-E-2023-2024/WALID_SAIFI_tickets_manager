@@ -26,6 +26,8 @@ class Database
         )";
         $this->conn->query($sql);
     }
+
+
     private function createStatutTable()
     {
         $sql = "CREATE TABLE IF NOT EXISTS Statut (
@@ -35,6 +37,7 @@ class Database
         $this->conn->query($sql);
     }
 
+
     private function createTagTable()
     {
         $sql = "CREATE TABLE IF NOT EXISTS Tag (
@@ -43,6 +46,8 @@ class Database
         )";
         $this->conn->query($sql);
     }
+    
+
     private function createTicketTable()
     {
         $sql = "CREATE TABLE IF NOT EXISTS Ticket (
@@ -58,6 +63,7 @@ class Database
         )";
         $this->conn->query($sql);
     }
+
 
     private function createCommentaireTable()
     {
@@ -96,7 +102,16 @@ class Database
         $this->conn->query($sql);
     }
 
-
+    private function createTables()
+    {
+        $this->createUtilisateurTable();
+        $this->createStatutTable();
+        $this->createTagTable();
+        $this->createTicketTable();
+        $this->createCommentaireTable();
+        $this->createAssignementTable();
+        $this->createAffecterTagTable();
+    }
 
 }
 
