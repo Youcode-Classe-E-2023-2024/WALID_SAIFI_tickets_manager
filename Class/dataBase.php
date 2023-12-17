@@ -26,6 +26,23 @@ class Database
         )";
         $this->conn->query($sql);
     }
+    private function createStatutTable()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS Statut (
+            id_statut INT PRIMARY KEY AUTO_INCREMENT,
+            libelle VARCHAR(255)
+        )";
+        $this->conn->query($sql);
+    }
+
+    private function createTagTable()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS Tag (
+            id_tag INT PRIMARY KEY AUTO_INCREMENT,
+            libelle VARCHAR(255)
+        )";
+        $this->conn->query($sql);
+    }
 
 
 }
