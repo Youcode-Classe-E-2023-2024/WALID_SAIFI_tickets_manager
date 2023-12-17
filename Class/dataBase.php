@@ -10,10 +10,18 @@ class Database
     public function __construct()
     {
         $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
+        $this->createDatabase();
     }
     public function getConnection()
     {
         return $this->conn;
+    }
+
+
+    private function createDatabase()
+    {
+        $sql = "CREATE DATABASE IF NOT EXISTS $this->db_name";
+        $this->conn->query($sql);
     }
     private function createUtilisateurTable()
     {
