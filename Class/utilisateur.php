@@ -103,7 +103,7 @@ class  utilisateur extends Database{
         $stmt->close();
     }
     public function updateUser() {
-        $query = "UPDATE Utilisateur SET nom=?, prenom=?, mot_de_passe=? WHERE email=?";
+        $query = "UPDATE Utilisateur SET nom=?, prenom=?, mot_de_passe=? WHERE id_utilisateur=?";
         $stmt = $this->getConnection()->prepare($query);
         $stmt->bind_param("ssss", $this->nom, $this->prenom, $this->mot_de_passe, $this->email);
         $stmt->execute();
@@ -111,10 +111,10 @@ class  utilisateur extends Database{
     }
 
 
-    public function deleteUser() {
-        $query = "DELETE FROM Utilisateur WHERE email=?";
+    public function deleteUser($id) {
+        $query = "DELETE FROM Utilisateur WHERE id_utilisateur=?";
         $stmt = $this->getConnection()->prepare($query);
-        $stmt->bind_param("s", $this->email);
+        $stmt->bind_param("s", $id);
         $stmt->execute();
         $stmt->close();
     }
@@ -140,9 +140,5 @@ class  utilisateur extends Database{
 
 }
  
-$login = new  utilisateur ();
-
- echo $login->login('NouveauMotDePasse','saifi@example.com');
-
 
 ?>
