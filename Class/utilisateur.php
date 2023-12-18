@@ -1,5 +1,5 @@
 <?php
-include 'Database.php';
+require_once("dataBase.php");
 
 class  utilisateur extends Database{
     public $nom;
