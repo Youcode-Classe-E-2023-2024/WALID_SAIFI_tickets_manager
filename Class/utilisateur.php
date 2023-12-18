@@ -1,12 +1,11 @@
 <?php
 include 'Database.php';
 
-class  utilisateur{
+class  utilisateur extends Database{
     public $nom;
     public $prenom;
     public $email;
     public $mot_de_passe;
-    public $conn;
  /** 
  * Constructeur de la classe Utilisateur.
  *
@@ -22,8 +21,6 @@ class  utilisateur{
         $this->prenom=$prenom;
         $this->email=$email;
         $this->mot_de_passe=$mot_de_passe;  
-        $database = new Database();
-        $this->conn=$database->getConnection();
     }
     
     /**
@@ -100,14 +97,14 @@ class  utilisateur{
      
     public function createUser() {
         $query = "INSERT INTO Utilisateur (nom, prenom, email, mot_de_passe) VALUES (?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->getConnection()->prepare($query);
         $stmt->bind_param("ssss", $this->nom, $this->prenom, $this->email, $this->mot_de_passe);
         $stmt->execute();
         $stmt->close();
     }
     public function updateUser() {
         $query = "UPDATE Utilisateur SET nom=?, prenom=?, mot_de_passe=? WHERE email=?";
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->getConnection()->prepare($query);
         $stmt->bind_param("ssss", $this->nom, $this->prenom, $this->mot_de_passe, $this->email);
         $stmt->execute();
         $stmt->close();
@@ -116,7 +113,7 @@ class  utilisateur{
 
     public function deleteUser() {
         $query = "DELETE FROM Utilisateur WHERE email=?";
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->getConnection()->prepare($query);
         $stmt->bind_param("s", $this->email);
         $stmt->execute();
         $stmt->close();
