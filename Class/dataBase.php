@@ -7,7 +7,7 @@
     private  $username = "root";
     private  $password = "";
     private  $db_name = "database_Tickt";
-    private  $conn;
+    protected  $conn;
     public function __construct()
     {
         $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
