@@ -17,6 +17,7 @@ class  utilisateur extends Database{
 
     function __construct($nom,$prenom,$email,$mot_de_passe)
     {
+        parent::__construct();
         $this->nom=$nom;
         $this->prenom=$prenom;
         $this->email=$email;
