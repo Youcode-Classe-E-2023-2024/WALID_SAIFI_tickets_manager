@@ -4,15 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page de Connexion</title>
+  
+  <!-- Liens CDN Bootstrap 5.1.3 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
+  <style>
+    body {
+      background-color: #f8f9fa; /* Choisir la couleur d'arrière-plan souhaitée */
+    }
+    .card {
+      margin-top: 50px; /* Ajuster la marge supérieure pour centrer la carte */
+      background-color: #ffffff; /* Choisir la couleur d'arrière-plan de la carte */
+    }
+  </style>
 </head>
 <body>
 
-<div class="container mt-5">
+<div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header text-center">
           Connexion
         </div>
         <div class="card-body">
@@ -25,7 +36,7 @@
               <label for="inputPassword" class="form-label">Mot de passe</label>
               <input type="password" class="form-control" id="inputPassword" placeholder="Entrez votre mot de passe">
             </div>
-            <button type="submit" class="btn btn-primary">Se connecter</button>
+            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
           </form>
         </div>
       </div>
