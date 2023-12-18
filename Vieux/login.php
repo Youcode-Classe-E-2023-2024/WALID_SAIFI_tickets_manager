@@ -2,11 +2,12 @@
 require_once("../Class/utilisateur.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
       $mot_pass = $_POST['pass'];
       $email = $_POST['email'];
       $user  = new utilisateur();
-      if($user->login($mot_pass,$email) == 'yes'){
-             header("Location: Vieux/login.php");
+      if($user->login($mot_pass,$email) == true){
+             header("Location:page_princepalle.php");
         }
 }
 ?>
