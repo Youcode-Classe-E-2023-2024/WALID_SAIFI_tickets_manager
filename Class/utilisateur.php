@@ -14,6 +14,7 @@ class  utilisateur extends Database{
  * @param string $prenom Le prénom de l'utilisateur.
  * @param string $email L'adresse e-mail de l'utilisateur.
  * @param string $mot_de_passe Le mot de passe de l'utilisateur.
+ * 
  */
 
     function __construct()
