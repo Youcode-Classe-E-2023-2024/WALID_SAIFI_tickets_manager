@@ -6,6 +6,7 @@ class  utilisateur extends Database{
     public $prenom;
     public $email;
     public $mot_de_passe;
+    public $data;
  /** 
  * Constructeur de la classe Utilisateur.
  *
@@ -15,13 +16,9 @@ class  utilisateur extends Database{
  * @param string $mot_de_passe Le mot de passe de l'utilisateur.
  */
 
-    function __construct($nom,$prenom,$email,$mot_de_passe)
+    function __construct()
     {
-        parent::__construct();
-        $this->nom=$nom;
-        $this->prenom=$prenom;
-        $this->email=$email;
-        $this->mot_de_passe=$mot_de_passe;  
+        parent::__construct();         
     }
     
     /**
@@ -121,14 +118,17 @@ class  utilisateur extends Database{
         $stmt->execute();
         $stmt->close();
     }
+
+
     public function login($password,$email){
-           $sql_code="SELECT * from Utilisateur WHERE email = '$email' AND mot_de_passe='$password' ";
-           $result = $this->getConnection()->query($sql_code);
+           $sql_code="SELECT * from utilisateur WHERE email = '.$email.' AND mot_de_passe = ".$password;
+           $data = new Database();
+           $result = $data->getConnection()->query($sql_code);
            $row = $result->fetch_assoc();
-           if($row !== null && $email == $row['email']  && $password == $row['mot_de_passe']){
-                return true;
+           if($row !== null){
+            return 'yes';
            }else{
-                return false;
+            return 'no';
            }
     }
 
