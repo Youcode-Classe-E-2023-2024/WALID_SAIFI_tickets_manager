@@ -1,7 +1,8 @@
 <?php
 
-class Database
-{
+
+ class Database{
+
     private  $host = "localhost";
     private  $username = "root";
     private  $password = "";
@@ -11,6 +12,7 @@ class Database
     {
         $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
         $this->createTables();
+       
     }
     public function getConnection()
     {
@@ -116,5 +118,6 @@ class Database
     }
 
 }
+
 
 ?>
