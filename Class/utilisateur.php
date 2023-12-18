@@ -119,6 +119,14 @@ class  utilisateur extends Database{
         $stmt->execute();
         $stmt->close();
     }
+    public function login($password,$email){
+           $sql_code="SELECT * from Utilisateur WHERE email = '$email' AND mot_de_passe='$password' ";
+           $result = $this->getConnection()->query($sql_code);
+           if($result->num_rows>0){
+            
+           }
+
+    }
 
 
 }
