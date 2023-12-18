@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $mot_pass = $_POST['pass'];
       $email = $_POST['email'];
       $user  = new utilisateur();
+
       if($user->login($mot_pass,$email) == true){
              header("Location:page_princepalle.php");
         }
@@ -41,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           Connexion
         </div>
         <div class="card-body">
-          <form>
+          <form action="login.php" method="post">
             <div class="mb-3">
               <label for="inputEmail" class="form-label">Email</label>
               <input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Entrez votre email">
