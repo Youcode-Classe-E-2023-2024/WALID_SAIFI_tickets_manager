@@ -120,20 +120,29 @@ class  utilisateur extends Database{
     }
 
 
-    public function login($password,$email){
-           $sql_code="SELECT * from utilisateur WHERE email = '.$email.' AND mot_de_passe = ".$password;
-           $data = new Database();
-           $result = $data->getConnection()->query($sql_code);
-           $row = $result->fetch_assoc();
-           if($row !== null){
-            return 'yes';
-           }else{
-            return 'no';
-           }
+    public function login($password, $email) {
+        $sql_code = "SELECT * FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
+        $data = new Database(); 
+        $stmt = $data->getConnection()->prepare($sql_code);
+        $stmt->bind_param("ss", $email, $password);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        if ($row !== null) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
 
 
 }
  
+$login = new  utilisateur ();
+
+ echo $login->login('NouveauMotDePasse','saifi@example.com');
+
 
 ?>
