@@ -56,9 +56,9 @@ CREATE TABLE affecter_tag(
 );
 /**code pour réperation de les utlisateur assignement**/
 
-  SELECT *
-  FROM utilisateur JOIN assignement JOIN ticket
-  ON utilisateur.id_utilisateur = assignement.id_assigne AND assignement.id_ticket=ticket.id_ticket;
-SELECT *
-FROM ticket JOIN tag JOIN affectertag 
-on ticket.id_ticket=affectertag.id_ticket AND affectertag.id_tag = tag.id_tag;
+   SELECT *
+   FROM utilisateur JOIN assignement JOIN ticket
+   ON utilisateur.id_utilisateur = assignement.id_assigne AND assignement.id_ticket=ticket.id_ticket;
+   SELECT *
+   FROM ticket JOIN tag JOIN affectertag 
+   on ticket.id_ticket=affectertag.id_ticket AND affectertag.id_tag = tag.id_tag;
