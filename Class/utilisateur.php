@@ -95,8 +95,10 @@ class  utilisateur extends Database{
     public function setMotDePasse($mot_de_passe) {
         $this->mot_de_passe = $mot_de_passe;
     }
-     
-    public function createUser() {
+    /**
+     * 
+     */
+    public function SinUp(){
         $query = "INSERT INTO Utilisateur (nom, prenom, email, mot_de_passe) VALUES (?, ?, ?, ?)";
         $stmt = $this->getConnection()->prepare($query);
         $stmt->bind_param("ssss", $this->nom, $this->prenom, $this->email, $this->mot_de_passe);
@@ -122,10 +124,12 @@ class  utilisateur extends Database{
     public function login($password,$email){
            $sql_code="SELECT * from Utilisateur WHERE email = '$email' AND mot_de_passe='$password' ";
            $result = $this->getConnection()->query($sql_code);
-           if($result->num_rows>0){
-            
+           $row = $result->fetch_assoc();
+           if($row !== null && $email == $row['email']  && $password == $row['mot_de_passe']){
+                return true;
+           }else{
+                return false;
            }
-
     }
 
 
