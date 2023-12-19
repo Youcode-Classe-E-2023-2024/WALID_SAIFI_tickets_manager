@@ -1,198 +1,119 @@
+<?php
+require_once("../Class/dataBase.php");
+require_once("../Class/Tickt.php");
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Check if all required fields are set and not empty
+    if (!empty($_POST['titre']) && !empty($_POST['description']) && !empty($_POST['priority']) && !empty($_POST['assigneur'])) {
+        $titre = htmlspecialchars($_POST['titre']);
+        $description = htmlspecialchars($_POST['description']);
+        $priority = htmlspecialchars($_POST['priority']);
+        $assigneur = $_POST['assigneur'];
+
+        $conn = new Database();
+        $tick = new Ticket($titre, $description, $priority, '1', '1');
+        $id = $tick->createTicket();
+
+        foreach ($assigneur as $userId) {
+            $stmt = $conn->getConnection()->prepare("INSERT INTO assignement (id_ticket, id_assigne) VALUES (?, ?)");
+            $stmt->bind_param("ii", $id, $userId);
+            $stmt->execute();
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en" class="antialiased">
-
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>DataTables </title>
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-	<link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel=" stylesheet">
-	<!--Replace with your tailwind.css once created-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Ticket</title>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
 
+        h2 {
+            color: #007BFF;
+        }
 
-	<!--Regular Datatables CSS-->
-	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
-	<!--Responsive Extension Datatables CSS-->
-	<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-	<style>
-		/*Overrides for Tailwind CSS */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
 
-		/*Form fields*/
-		.dataTables_wrapper select,
-		.dataTables_wrapper .dataTables_filter input {
-			color: #4a5568;
-			/*text-gray-700*/
-			padding-left: 1rem;
-			/*pl-4*/
-			padding-right: 1rem;
-			/*pl-4*/
-			padding-top: .5rem;
-			/*pl-2*/
-			padding-bottom: .5rem;
-			/*pl-2*/
-			line-height: 1.25;
-			/*leading-tight*/
-			border-width: 2px;
-			/*border-2*/
-			border-radius: .25rem;
-			border-color: #edf2f7;
-			/*border-gray-200*/
-			background-color: #edf2f7;
-			/*bg-gray-200*/
-		}
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
 
-		/*Row Hover*/
-		table.dataTable.hover tbody tr:hover,
-		table.dataTable.display tbody tr:hover {
-			background-color: #ebf4ff;
-			/*bg-indigo-100*/
-		}
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
 
-		/*Pagination Buttons*/
-		.dataTables_wrapper .dataTables_paginate .paginate_button {
-			font-weight: 700;
-			/*font-bold*/
-			border-radius: .25rem;
-			/*rounded*/
-			border: 1px solid transparent;
-			/*border border-transparent*/
-		}
-
-		/*Pagination Buttons - Current selected */
-		.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-			color: #fff !important;
-			/*text-white*/
-			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-			/*shadow*/
-			font-weight: 700;
-			/*font-bold*/
-			border-radius: .25rem;
-			/*rounded*/
-			background: #667eea !important;
-			/*bg-indigo-500*/
-			border: 1px solid transparent;
-			/*border border-transparent*/
-		}
-
-		/*Pagination Buttons - Hover */
-		.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-			color: #fff !important;
-			/*text-white*/
-			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-			/*shadow*/
-			font-weight: 700;
-			/*font-bold*/
-			border-radius: .25rem;
-			/*rounded*/
-			background: #667eea !important;
-			/*bg-indigo-500*/
-			border: 1px solid transparent;
-			/*border border-transparent*/
-		}
-
-		/*Add padding to bottom border */
-		table.dataTable.no-footer {
-			border-bottom: 1px solid #e2e8f0;
-			/*border-b-1 border-gray-300*/
-			margin-top: 0.75em;
-			margin-bottom: 0.75em;
-		}
-
-		/*Change colour of responsive icon*/
-		table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
-		table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
-			background-color: #667eea !important;
-			/*bg-indigo-500*/
-		}
-	</style>
-
-
-
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
+<body>
 
-<body class="bg-gray-100 text-gray-900 tracking-wider leading-normal">
+<form action="" method="post">
+    <h2>Ajouter un Ticket</h2>
+    
+    <label for="titre">Titre du Ticket:</label>
+    <input type="text" id="titre" name="titre" required><br>
 
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea><br>
 
-	<!--Container-->
-	<div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2">
+    <label for="priority">Priorité:</label>
+    <select id="priority" name="priority" required>
+        <option value="" disabled selected>Choisissez une priorité</option>
+        <?php
+        for ($i = 1; $i <= 10; $i++) {
+            echo "<option value='$i'>$i</option>";
+        }
+        ?>
+    </select><br>
 
-		<!--Title-->
-		<h1 class="flex items-center font-sans font-bold break-normal text-indigo-500 px-2 py-8 text-xl md:text-2xl">
-			Responsive <a class="underline mx-2" href="https://datatables.net/">DataTables.net</a> Table
-		</h1>
+    <label for="assigneur[]">Créateur:</label>
+    <select id="assigneur" name="assigneur[]" multiple>
+        <?php
+        $conn = new Database();
+        $result = $conn->getConnection()->query("SELECT id_utilisateur, nom, prenom FROM Utilisateur");
+        while ($row = $result->fetch_assoc()) {
+            $userId = $row['id_utilisateur'];
+            $userName = htmlspecialchars($row['nom'] . " " . $row['prenom']);
+            echo "<option value='$userId'>$userName</option>";
+        }
+        ?>
+    </select><br>
 
-
-		<!--Card-->
-		<div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
-
-			<table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-				<thead>
-					<tr>
-						<th data-priority="1">Name</th>
-						<th data-priority="2">Position</th>
-						<th data-priority="3">Office</th>
-						<th data-priority="4">Age</th>
-						<th data-priority="5">Start date</th>
-						<th data-priority="6">Salary</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Tiger Nixon</td>
-						<td>System Architect</td>
-						<td>Edinburgh</td>
-						<td>61</td>
-						<td>2011/04/25</td>
-						<td>$320,800</td>
-					</tr>
-
-					<!-- Rest of your data (refer to https://datatables.net/examples/server_side/ for server side processing)-->
-
-					<tr>
-						<td>Donna Snider</td>
-						<td>Customer Support</td>
-						<td>New York</td>
-						<td>27</td>
-						<td>2011/01/25</td>
-						<td>$112,000</td>
-					</tr>
-				</tbody>
-
-			</table>
-
-
-		</div>
-		<!--/Card-->
-
-
-	</div>
-	<!--/container-->
-
-
-
-
-
-	<!-- jQuery -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-	<!--Datatables -->
-	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-	<script>
-		$(document).ready(function() {
-
-			var table = $('#example').DataTable({
-					responsive: true
-				})
-				.columns.adjust()
-				.responsive.recalc();
-		});
-	</script>
+    <input type="submit" value="Ajouter Ticket">
+</form>
 
 </body>
-
 </html>
