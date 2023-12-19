@@ -61,9 +61,8 @@
 
 </head>
 <body>
-
 <div class="container mt-5">
-    <h2>Add Ticket</h2>
+    <h2>Ajouter  Ticket</h2>
     <form id="addTicketForm">
         <div class="form-group">
             <label for="title">Title:</label>
@@ -79,7 +78,7 @@
         <?php
         // Generate options dynamically based on the range from 1 to 10
         for ($i = 1; $i <= 10; $i++) {
-            echo "<option value=\"$i\">$i</option>";
+            echo "<option  value=\"$i\">$i</option>";
         }
         ?>
     </select>
@@ -93,11 +92,11 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="tags">Tags:</label>
-            <!-- Populate this checkbox list dynamically with tags from the database using Ajax -->
-            <div id="tags">
-                <!-- Checkboxes will be filled dynamically -->
-            </div>
+            <label for="assignee">Tag:</label>
+            <!-- Populate this dropdown dynamically with users from the database using Ajax -->
+            <select class="form-control" id="assignee" name="tag" required>
+                <!-- Options will be filled dynamically -->
+            </select>
         </div>
         <button type="button" class="btn btn-primary" onclick="addTicket()">Add Ticket</button>
     </form>
