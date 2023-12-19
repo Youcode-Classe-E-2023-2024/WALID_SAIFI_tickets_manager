@@ -10,12 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $priority = $_POST['priority'];
         $assigneur = $_POST['assigneur'];
         $conn = new Database();
-        $tick = new Ticket($titre,$description,$priority,'1','1');
-        $id=$tick->createTicket();
+        $tick = new Ticket($titre, $description, $priority, '17', '1');
+        $id = $tick->createTicket();
 
-}
+        foreach ($assigneur as $userId) {
+            $stmt = $conn->getConnection()->prepare("INSERT INTO assignement (id_ticket, id_assigne) VALUES (?, ?)");
+            $stmt->bind_param("ii", $id, $userId);
+            $stmt->execute();
+        }
+    }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
