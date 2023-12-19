@@ -140,6 +140,21 @@ class  utilisateur extends Database{
             }
         }
     }
+    public function getUserInfo($email) {
+        $sql_code = "SELECT id_utilisateur, nom, prenom FROM utilisateur WHERE email = ?";
+        $data = new Database();
+        $stmt = $data->getConnection()->prepare($sql_code);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+    
+        return null; // Return null if no user found with the provided email
+    }
+    
 
     
 }
