@@ -1,17 +1,22 @@
 <?php
 require_once("../Class/utilisateur.php");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-      $mot_pass = $_POST['pass'];
-      $email = $_POST['email'];
-      $user  = new utilisateur();
+session_start(); 
 
-      if($user->login($mot_pass,$email) == true){
-             header("Location:page_princepalle.php");
-        }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $mot_pass = $_POST['pass'];
+    $email = $_POST['email'];
+    $user = new utilisateur();
+    if ($user->login($mot_pass, $email) == true) {
+        $userInfo = $user->getUserInfo($email); 
+        $_SESSION['user_id'] = $userInfo['id_utilisateur'];
+        $_SESSION['user_nom'] = $userInfo['nom'];
+        $_SESSION['user_prenom'] = $userInfo['prenom'];
+        header("location:page_princepalle.php");
+    }
 }
 ?>
+
 <!DOCTYPE html>
 
 <html lang="en">
