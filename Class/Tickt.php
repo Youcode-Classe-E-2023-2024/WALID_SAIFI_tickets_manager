@@ -22,14 +22,20 @@ class Ticket extends Database
 
     public function createTicket()
     {
+        $conn = new Database();
         $query = "INSERT INTO Ticket (titre, description, priorite, id_createur, id_statut) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $this->getConnection()->prepare($query);
+        $stmt = $conn->getConnection()->prepare($query);
         $stmt->bind_param("ssiii", $this->titre, $this->description, $this->priorite, $this->id_createur, $this->id_statut);
-
+    
         if ($stmt->execute()) {
-            return $this->getConnection()->insert_id;
-        } 
+            return $conn->getConnection()->insert_id;
+        } else {
+            // Handle the error
+            echo "Error creating ticket: " . $stmt->error;
+            return false;
+        }
     }
+    
 
  
 
