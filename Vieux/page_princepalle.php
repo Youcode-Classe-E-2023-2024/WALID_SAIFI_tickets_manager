@@ -43,11 +43,9 @@
         <i class="bi bi-house-door-fill"></i>
         <span class="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
       </div>
-      <div
-        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
-      >
+      <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
         <i class="bi bi-bookmark-fill"></i>
-        <span class="text-[15px] ml-4 text-gray-200 font-bold">Bookmark</span>
+        <span class="text-[15px] ml-4 text-gray-200 font-bold">Ajouter Tickt</span>
       </div>
       <div class="my-4 bg-gray-600 h-[1px]"></div>
       <div
@@ -83,8 +81,41 @@
         <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
       </div>
     </div>
+    
+
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Ticket Table</h1>
+
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b">ID</th>
+                    <th class="py-2 px-4 border-b">Titre</th>
+                    <th class="py-2 px-4 border-b">Description</th>
+                    <th class="py-2 px-4 border-b">Date de création</th>
+                    <th class="py-2 px-4 border-b">Priorité</th>
+                    <th class="py-2 px-4 border-b">ID Créateur</th>
+                    <th class="py-2 px-4 border-b">ID Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Les données de votre table seront ajoutées ici dynamiquement -->
+            </tbody>
+        </table>
+    </div>
+
+
+
 
     <script type="text/javascript">
+      	$(document).ready(function() {
+
+var table = $('#example').DataTable({
+    responsive: true
+  })
+  .columns.adjust()
+  .responsive.recalc();
+});
       function dropdown() {
         document.querySelector("#submenu").classList.toggle("hidden");
         document.querySelector("#arrow").classList.toggle("rotate-0");
