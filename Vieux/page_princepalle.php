@@ -73,7 +73,7 @@
 
     <div class="main-content ml-[300px] p-6">
       <h2 class="text-2xl font-bold text-white mb-4">Liste des tickets</h2>
-  <table class="w-full bg-white border border-gray-300">
+        <table class="w-full bg-white border border-gray-300">
     <thead>
       <tr>
         <th class="py-2 px-4 border-b">Titre</th>
