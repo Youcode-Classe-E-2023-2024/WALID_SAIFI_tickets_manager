@@ -101,7 +101,9 @@ class  utilisateur extends Database{
         $stmt = $this->getConnection()->prepare($query);
         $stmt->bind_param("ssss", $nom, $prenom, $email, $password);
         $stmt->execute();
+        echo $this->getConnection()->insert_id;
         $stmt->close();
+
     }
     public function updateUser() {
         $query = "UPDATE Utilisateur SET nom=?, prenom=?, mot_de_passe=? WHERE id_utilisateur=?";
