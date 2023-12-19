@@ -3,7 +3,6 @@ require_once("dataBase.php");
 
 class Ticket extends Database
 {
-    public $id_ticket;
     public $titre;
     public $description;
     public $date_creation;
@@ -28,10 +27,8 @@ class Ticket extends Database
         $stmt->bind_param("ssiii", $this->titre, $this->description, $this->priorite, $this->id_createur, $this->id_statut);
 
         if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+            return $this->getConnection()->insert_id;
+        } 
     }
 
  
