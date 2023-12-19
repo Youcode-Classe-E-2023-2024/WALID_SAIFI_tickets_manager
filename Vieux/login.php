@@ -51,8 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <label for="inputPassword" class="form-label">Mot de passe</label>
               <input type="password" name = "pass" class="form-control" id="inputPassword" placeholder="Entrez votre mot de passe">
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+            <button type="submit" class="btn btn-primary btn-block">Se connecter</button> 
           </form>
+                  <div class="mt-3 text-center">
+                    <p>Vous n'avez pas de compte ? <a href="SinUp.php">Inscrivez-vous ici</a></p>
+                </div>
         </div>
       </div>
     </div>
