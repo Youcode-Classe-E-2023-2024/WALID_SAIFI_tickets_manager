@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $priority = $_POST['priority'];
         $assigneur = $_POST['assigneur'];
         $conn = new Database();
-        $tick = new Ticket($titre, $description, $priority, '17', '1');
+        $tick = new Ticket($titre, $description, $priority, '1', '1');
         $id = $tick->createTicket();
 
         foreach ($assigneur as $userId) {
@@ -76,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
     </style>
 </head> 
 <body>
@@ -105,8 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    <label for="assigneur[]">Créateur:</label>
-    <select id="assigneur" name="assigneur[]" multiple required>
+    <label for="assigneur[]">Assigner à développeur :</label>
+    <select id="assigneur" name="assigneur[]" multiple>
     <?php
     $conn = new Database();
     $result = $conn->getConnection()->query("SELECT id_utilisateur, nom, prenom FROM Utilisateur");
@@ -117,35 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </select><br>
       <input type="submit" value="Ajouter Ticket">
       </form>
-      <script>
-        var selectedOptions = [];
-     document.getElementById('assigneur').addEventListener('change', function() {
-    updateSelectedOptions(this);
-});
 
-function updateSelectedOptions(select) {
-    var options = select && select.options;
-
-    for (var i = 0; i < options.length; i++) {
-        if (options[i].selected) {
-            var value = options[i].value;
-
-            if (!selectedOptions.includes(value)) {
-                selectedOptions.push(value);
-                options[i].style.color = 'red'; 
-            } else {
-                selectedOptions = selectedOptions.filter(function(item) {
-                    return item !== value;
-                });
-                options[i].style.color = '';
-            }
-        }
-    }
-
-    // Log the selected values array
-    console.log(selectedOptions);
-}
-</script>
 
 </body>
 </html>
