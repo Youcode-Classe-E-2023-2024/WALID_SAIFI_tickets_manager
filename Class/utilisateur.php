@@ -96,10 +96,10 @@ class  utilisateur extends Database{
     /**
      * 
      */
-    public function SinUp(){
+    public function SinUp($nom,$prenom,$email,$password){
         $query = "INSERT INTO Utilisateur (nom, prenom, email, mot_de_passe) VALUES (?, ?, ?, ?)";
         $stmt = $this->getConnection()->prepare($query);
-        $stmt->bind_param("ssss", $this->nom, $this->prenom, $this->email, $this->mot_de_passe);
+        $stmt->bind_param("ssss", $nom, $prenom, $email, $password);
         $stmt->execute();
         $stmt->close();
     }
@@ -121,24 +121,25 @@ class  utilisateur extends Database{
     }
 
 
-    public function login($password, $email) {
-        $sql_code = "SELECT * FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
-        $data = new Database(); 
+    public function login($enteredPassword, $email) {
+        $sql_code = "SELECT * FROM utilisateur WHERE email = ?";
+        $data = new Database();
         $stmt = $data->getConnection()->prepare($sql_code);
-        $stmt->bind_param("ss", $email, $password);
-
+        $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        if ($row !== null) {
-            return true;
-        } else {
-            return false;
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $Password = $row['mot_de_passe'];
+            if (password_verify($enteredPassword, $Password)) {
+                return true;
+            }else{
+                return false; 
+            }
         }
     }
 
-
-
+    
 }
  
 
