@@ -46,7 +46,7 @@
     {
         $sql = "CREATE TABLE IF NOT EXISTS Tag (
             id_tag INT PRIMARY KEY AUTO_INCREMENT,
-            libelle VARCHAR(255)
+            libelle_tag VARCHAR(255)
         )";
         $this->conn->query($sql);
     }
