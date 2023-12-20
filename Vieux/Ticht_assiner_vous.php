@@ -4,7 +4,7 @@ require_once("../Class/utilisateur.php");
 $userId = 17;
 $data_user = new utilisateur();
 
-$userInfo = $data_user->getUserInfo_mon_Tickets($userId);
+$userInfo = $data_user->getUserInfo_tickt_assinement($userId);
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +26,9 @@ $userInfo = $data_user->getUserInfo_mon_Tickets($userId);
                 <th class="py-2 px-4 border-b">Titre</th>
                 <th class="py-2 px-4 border-b">Date</th>
                 <th class="py-2 px-4 border-b">Statut</th>
+                <th class="py-2 px-4 border-b">Prioréte</th>
+                <th class="py-2 px-4 border-b">Action</th>
+                
             </tr>
             </thead>
             <tbody>
@@ -35,7 +38,9 @@ $userInfo = $data_user->getUserInfo_mon_Tickets($userId);
                         <td class="py-2 px-4 border-b"><?php echo $ticket['titre']; ?></td>
                         <td class="py-2 px-4 border-b"><?php echo $ticket['date_creation']; ?></td>
                         <td class="py-2 px-4 border-b"><?php echo $ticket['libelle']; ?></td>
+                        <td class="py-2 px-4 border-b"><?php echo $ticket['priorite']; ?></td>
                         <td class="py-2 px-4 border-b">
+                        <a href="operation_ticket.php?ticket_id=<?php echo $ticket['id_ticket']; ?>" class="bg-blue-500 text-white py-1 px-2 rounded-md">Opération</a>
           
                         </td>
                     </tr>
