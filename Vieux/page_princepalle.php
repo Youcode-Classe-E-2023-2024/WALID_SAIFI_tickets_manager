@@ -1,7 +1,12 @@
 <?php
+session_start(); 
+if(!isset( $_SESSION['user_id'])){
+    header('location:login.php');
+}else{
 require_once("../Class/dataBase.php");
 require_once("../Class/utilisateur.php");
-$userId = 17;
+
+$userId = $_SESSION['user_id'] ;
 $data_user = new utilisateur();
 
 $userInfo = $data_user->getUserInfo_mon_Tickets($userId);
@@ -50,3 +55,4 @@ $userInfo = $data_user->getUserInfo_mon_Tickets($userId);
 
 </body>
 </html>
+<?php  } ?>
