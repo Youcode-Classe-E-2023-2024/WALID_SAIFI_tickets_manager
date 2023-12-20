@@ -182,13 +182,11 @@ class  utilisateur extends Database{
                     return $result->fetch_all(MYSQLI_ASSOC);
     }
     public function getUserInfo_tickt_assinement($id) {
-        $sql_code = "SELECT utilisateur.*, ticket.*, statut.*, assignement.*, affecter_tag.*, tag.*
+        $sql_code = "SELECT utilisateur.*, ticket.*, statut.*, assignement.*,
         FROM utilisateur
         JOIN assignement ON utilisateur.id_utilisateur = assignement.id_assigne
         JOIN ticket ON assignement.id_ticket = ticket.id_ticket
         JOIN statut ON ticket.id_statut = statut.id_statut
-        LEFT JOIN affecter_tag ON ticket.id_ticket = affecter_tag.id_ticket
-        LEFT JOIN tag ON affecter_tag.id_tag = tag.id_tag
         WHERE assignement.id_assigne = $id";
         $data = new Database();
         $result = $data->getConnection()->query($sql_code );
