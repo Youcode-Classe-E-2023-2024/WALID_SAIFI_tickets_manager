@@ -35,6 +35,16 @@ class Ticket extends Database
             return false;
         }
     }
+    public function get_tag_tickt($id_tickt){
+
+        $sql_code = " SELECT ticket.*, affectertag.*, tag.*
+                      FROM ticket
+                      JOIN affectertag ON affectertag.id_ticket = ticket.id_ticket
+                      JOIN tag ON affectertag.id_tag = tag.id_tag";
+        $data = new Database();
+        $result = $data->getConnection()->query($sql_code );
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
     
 
  
