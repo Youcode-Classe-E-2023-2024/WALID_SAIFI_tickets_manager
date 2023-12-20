@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-200 font-sans">
+<body class="bg-blue-900 font-sans">
 
     <form action="" method="post" class="max-w-md mx-auto mt-8 p-8 bg-white rounded shadow-md">
         <h2 class="text-2xl mb-4 text-blue-500">Ajouter un Ticket</h2>
