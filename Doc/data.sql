@@ -14,7 +14,7 @@ CREATE TABLE Statut (
 
 CREATE TABLE Tag (
     id_tag INT PRIMARY KEY AUTO_INCREMENT,
-    libelle VARCHAR(255)
+    libelle_tag VARCHAR(255)
 );
 
 CREATE TABLE Ticket (
