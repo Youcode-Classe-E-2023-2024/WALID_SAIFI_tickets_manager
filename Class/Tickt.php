@@ -40,7 +40,8 @@ class Ticket extends Database
         $sql_code = " SELECT ticket.*, affectertag.*, tag.*
                       FROM ticket
                       JOIN affectertag ON affectertag.id_ticket = ticket.id_ticket
-                      JOIN tag ON affectertag.id_tag = tag.id_tag";
+                      JOIN tag ON affectertag.id_tag = tag.id_tag
+                      WHERE ticket.id_ticket=$id_tickt";
         $data = new Database();
         $result = $data->getConnection()->query($sql_code );
         return $result->fetch_all(MYSQLI_ASSOC);
