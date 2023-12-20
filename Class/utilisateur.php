@@ -16,7 +16,6 @@ class  utilisateur extends Database{
  * @param string $mot_de_passe Le mot de passe de l'utilisateur.
  * 
  */
-
     function __construct()
     {
         parent::__construct();         
@@ -152,12 +151,51 @@ class  utilisateur extends Database{
             return $result->fetch_assoc();
         }
     
-        return null; // Return null if no user found with the provided email
+        return null; 
+    }
+    public function getUserInfo_id($id) {
+        $sql_code = "SELECT * FROM utilisateur WHERE id_utilisateur = ?";
+        $data = new Database();
+        $stmt = $data->getConnection()->prepare($sql_code);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+    
+        return null; 
+
+    } 
+
+
+    public function getUserInfo_mon_Tickets($id) {
+        $sql_code = "SELECT utilisateur.*, ticket.*, statut.*
+        FROM utilisateur
+        JOIN assignement ON utilisateur.id_utilisateur = assignement.id_assigne
+        JOIN ticket ON assignement.id_ticket = ticket.id_ticket
+        JOIN statut ON ticket.id_statut = statut.id_statut
+        WHERE ticket.id_createur = $id";
+                    $data = new Database();
+                    $result = $data->getConnection()->query($sql_code );
+                    return $result->fetch_all(MYSQLI_ASSOC);
+    }
+                    public function getUserInfo_tickt_assinement($id) {
+                    $sql_code = "SELECT utilisateur.*, ticket.*, statut.* ,assignement.* 
+                    FROM utilisateur JOIN assignement ON utilisateur.id_utilisateur = assignement.id_assigne JOIN ticket ON assignement.id_ticket = ticket.id_ticket JOIN statut ON ticket.id_statut = statut.id_statut 
+                     WHERE assignement.id_assigne=$id";
+                    $data = new Database();
+                    $result = $data->getConnection()->query($sql_code );
+                    return $result->fetch_all(MYSQLI_ASSOC);
     }
     
-
-    
 }
+    
+
+
+
+
  
 
 ?>
