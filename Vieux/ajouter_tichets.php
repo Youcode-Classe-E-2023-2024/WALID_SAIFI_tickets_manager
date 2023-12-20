@@ -2,6 +2,8 @@
 require_once("../Class/dataBase.php");
 require_once("../Class/Tickt.php");
 
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if all required fields are set
     if (isset($_POST['titre'], $_POST['description'], $_POST['priority'], $_POST['assigneur'])) {
@@ -12,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $conn = new Database();
         $tick = new Ticket($titre, $description, $priority, '1', '1');
         $id = $tick->createTicket();
-
         foreach ($assigneur as $userId) {
             $stmt = $conn->getConnection()->prepare("INSERT INTO assignement (id_ticket, id_assigne) VALUES (?, ?)");
             $stmt->bind_param("ii", $id, $userId);
@@ -57,8 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </select>
 
         <label for="assigneur[]" class="block text-gray-600">Assigner à développeur :</label>
-        <select id="assigneur" name="assigneur[]" multiple
-            class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500">
+        <select id="assigneur" name="assigneur[]" multiple class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500">
             <?php
             $conn = new Database();
             $result = $conn->getConnection()->query("SELECT id_utilisateur, nom, prenom FROM Utilisateur");
@@ -67,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             ?>
         </select>
-
         <input type="submit" value="Ajouter Ticket"
             class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-700">
     </form>
