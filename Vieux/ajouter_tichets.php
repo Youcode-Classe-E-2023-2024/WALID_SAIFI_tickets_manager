@@ -26,6 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->execute();
         }
     }
+     // Ajout des tags
+     if (isset($_POST['tags'])) {
+        $tags = $_POST['tags'];
+        foreach ($tags as $tagId) {
+            $stmt = $conn->getConnection()->prepare("INSERT INTO affectertag (id_ticket, id_tag) VALUES (?, ?)");
+            $stmt->bind_param("ii", $id, $tagId);
+            $stmt->execute();
+        }
+    }
 }
 ?>
 
@@ -82,10 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
                 ?>
             </select>
-
-            <input type="submit" value="Ajouter Ticket"
-                class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-700">
-
 
         <input type="submit" value="Ajouter Ticket"
             class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-700">
