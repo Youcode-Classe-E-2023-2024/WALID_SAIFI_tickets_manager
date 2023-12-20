@@ -1,4 +1,9 @@
 <?php
+
+session_start(); 
+if(!isset( $_SESSION['user_id'])){
+    header('location:login.php');
+}else{
 require_once("../Class/dataBase.php");
 require_once("../Class/Tickt.php");
 
@@ -11,8 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $description = $_POST['description'];
         $priority = $_POST['priority'];
         $assigneur = $_POST['assigneur'];
+        $crateur_id=$_SESSION['user_id'];
         $conn = new Database();
-        $tick = new Ticket($titre, $description, $priority, '1', '1');
+        $tick = new Ticket($titre, $description, $priority, $crateur_id, '1');
         $id = $tick->createTicket();
         foreach ($assigneur as $userId) {
             $stmt = $conn->getConnection()->prepare("INSERT INTO assignement (id_ticket, id_assigne) VALUES (?, ?)");
@@ -67,10 +73,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             ?>
         </select>
+        <label for="tags" class="block text-gray-600">Tags :</label>
+            <select id="tags" name="tags[]" multiple class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500">
+                <?php
+                $result = $conn->getConnection()->query("SELECT id_tag, libelle_tag FROM Tag");
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='" . $row['id_tag'] . "'>" . $row['libelle_tag'] . "</option>";
+                }
+                ?>
+            </select>
+
+            <input type="submit" value="Ajouter Ticket"
+                class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-700">
+
+
         <input type="submit" value="Ajouter Ticket"
             class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-700">
+
+
     </form>
 
 </body>
 
 </html>
+<?php }?>
