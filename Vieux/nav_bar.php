@@ -46,19 +46,18 @@
         onclick="dropdown()"
       >
         <i class="bi bi-chat-left-text-fill"></i>
-        <a href="tikt_trater.php" class="flex justify-between w-full items-center">
-    <span class="text-[15px] ml-4 text-gray-200 font-bold">Ticht assiner a vous</span>
+        <a href="Ticht_assiner_vous.php" class="flex justify-between w-full items-center">
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Ticht assiner a vous</span>
     <span class="text-sm rotate-180" id="arrow">
         <i class="bi bi-chevron-down"></i>
     </span>
 </a>
 
       </div>
-      <div
-        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
-      >
-        <i class="bi bi-box-arrow-in-right"></i>
-        <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
-      </div>
+      <a href="dec.php" class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+  <i class="bi bi-box-arrow-in-right"></i>
+  <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
+</a>
+
     </div>
     
