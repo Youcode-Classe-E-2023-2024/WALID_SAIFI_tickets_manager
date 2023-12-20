@@ -29,10 +29,6 @@ class Ticket extends Database
     
         if ($stmt->execute()) {
             return $conn->getConnection()->insert_id;
-        } else {
-            // Handle the error
-            echo "Error creating ticket: " . $stmt->error;
-            return false;
         }
     }
     public function get_tag_tickt($id_tickt){
