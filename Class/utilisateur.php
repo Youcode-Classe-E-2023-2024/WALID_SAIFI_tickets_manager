@@ -181,6 +181,8 @@ class  utilisateur extends Database{
                     $result = $data->getConnection()->query($sql_code );
                     return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+
     public function getUserInfo_tickt_assinement($id) {
         $sql_code = "SELECT utilisateur.*, ticket.*, statut.*, assignement.*
         FROM utilisateur
@@ -191,9 +193,30 @@ class  utilisateur extends Database{
         ORDER BY ticket.priorite DESC";
             
         $data = new Database();
-        $result = $data->getConnection()->query($sql_code );
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $connection = $data->getConnection();
+        
+        if ($connection) {
+            $result = $connection->query($sql_code);
+    
+            if ($result) {
+                $data = $result->fetch_all(MYSQLI_ASSOC);
+                $result->close(); // Close the result set
+                return $data;
+            } else {
+                // Handle query execution error
+                echo "Error executing the query: " . $connection->error;
+            }
+        } else {
+            // Handle database connection error
+            echo "Error connecting to the database.";
+        }
+    
+        return array(); // Return an empty array if there's an error
     }
+    
+
+
+
     
 }
     
